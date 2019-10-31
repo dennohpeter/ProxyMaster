@@ -1,0 +1,5 @@
+os
+sys
+.vscode/
+.backup_proxy/
+venv/
