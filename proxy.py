@@ -124,6 +124,8 @@ def set_proxy():
     if set_password.lower() in ["y", "yes"]:
         username = _get_input("Enter Username: ")
         password = getpass.getpass("Enter Password: ")
+    else:
+        default()
 
     # remove existing proxies if exist before setting new
     remove_proxy(False)
@@ -206,7 +208,8 @@ def exit(message="\nBye..."):
 
 
 def default():
-    print("Invalid option, try again.")
+    print("Invalid option, please try again.")
+    sys.exit()
 
 
 if __name__ == "__main__":
