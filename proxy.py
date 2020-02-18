@@ -1,5 +1,10 @@
 #!/usr/bin/python3
 
+import shutil  # copy files
+import getpass  # get_password input
+import sys
+import os
+import re
 """
 ----------------------------------------------
 Originaly created by : Nityananda Gohain
@@ -20,11 +25,6 @@ Three files will be modified
 3) /etc/bash.bashrc
 """
 
-import re
-import os
-import sys
-import getpass  # get_password input
-import shutil  # copy files
 apt_file_path = "/etc/apt/apt.conf"
 env_file_path = "/etc/environment"
 bashrc_file_path = "/etc/bash.bashrc"
@@ -61,9 +61,9 @@ def create_proxy_backup(previous=False):
 
 # Writes proxy to /etc/apt/apt.conf
 def write_proxy_to_apt(proxy, port, username, password):
-    lines = ["Acquire::http::proxy http://{}:{}/;\n",
-             "Acquire::ftp::proxy http://{}:{}/;\n",
-             "Acquire::https::proxy http://{}:{}/;\n"]
+    lines = ['Acquire::http::proxy "http://{}:{}/";\n',
+             'Acquire::ftp::proxy "http://{}:{}/";\n',
+             'Acquire::https::proxy "http://{}:{}/";\n']
     writer(apt_file_path, lines, proxy, port, username, password)
 
 
@@ -124,8 +124,8 @@ def set_proxy():
     if set_password.lower() in ["y", "yes"]:
         username = _get_input("Enter Username: ")
         password = getpass.getpass("Enter Password: ")
-    else:
-        default()
+    # else:
+    #     default()
 
     # remove existing proxies if exist before setting new
     remove_proxy(False)
